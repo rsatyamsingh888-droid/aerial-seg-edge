@@ -10,7 +10,7 @@ numbers measured by the scripts in this repository.
 ## Progress
 
 - [x] Data download and statistics
-- [ ] Preprocessing and PyTorch dataset
+- [x] Preprocessing and PyTorch dataset
 - [ ] U-Net model and training loop
 - [ ] Evaluation (mean IoU per class)
 - [ ] ONNX export and parity check
