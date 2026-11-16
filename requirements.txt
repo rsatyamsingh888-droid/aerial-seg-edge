@@ -2,3 +2,6 @@ numpy
 pillow
 matplotlib
 torch
+onnx
+onnxscript
+onnxruntime
