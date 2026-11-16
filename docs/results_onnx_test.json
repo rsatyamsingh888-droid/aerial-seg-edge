@@ -1,0 +1,10 @@
+{
+  "background": 0.4697,
+  "building": 0.3907,
+  "road": 0.3854,
+  "water": 0.4035,
+  "barren": 0.1779,
+  "forest": 0.3813,
+  "agriculture": 0.3896,
+  "mIoU": 0.3712
+}
