@@ -11,7 +11,7 @@ numbers measured by the scripts in this repository.
 
 - [x] Data download and statistics
 - [x] Preprocessing and PyTorch dataset
-- [ ] U-Net model and training loop
+- [x] U-Net model and training loop
 - [ ] Evaluation (mean IoU per class)
 - [ ] ONNX export and parity check
 - [ ] Benchmark: model size and CPU latency
