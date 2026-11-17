@@ -1,0 +1,16 @@
+{
+  "machine": "macOS-27.2.1-arm64-arm-64bit",
+  "threads": 4,
+  "input": "1 x 3 x 512 x 512",
+  "runs": 50,
+  "pytorch": {
+    "size_mb": 7.81,
+    "median_ms": 95.3,
+    "p90_ms": 96.1
+  },
+  "onnx": {
+    "size_mb": 7.85,
+    "median_ms": 81.8,
+    "p90_ms": 85.0
+  }
+}
