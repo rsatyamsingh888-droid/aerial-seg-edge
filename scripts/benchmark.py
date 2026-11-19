@@ -12,6 +12,7 @@ from aerialseg.model import UNet
 
 WEIGHTS =Path("runs/unet/best.pt")
 ONNX_PATH = Path("runs/unet/model.onnx")
+INT8_PATH = Path("runs/unet/model_int8.onnx")
 WARMUP = 10
 RUNS = 50
 
@@ -52,6 +53,11 @@ def main():
     def run_onnx():
         session.run(None, {input_name: x_np})
 
+    session_int8 = ort.InferenceSession(str(INT8_PATH), options, providers=["CPUExecutionProvider"])
+
+
+    def run_int8():
+        session_int8.run(None, {input_name: x_np})
 
     results = {
         "machine": platform.platform(),
@@ -60,7 +66,7 @@ def main():
         "runs": RUNS,
         
     }
-    for name, fn, path in [("pytorch", run_pytorch, WEIGHTS), ("onnx", run_onnx, ONNX_PATH)]:
+    for name, fn, path in [("pytorch", run_pytorch, WEIGHTS), ("onnx", run_onnx, ONNX_PATH), ("onnx_int8", run_int8, INT8_PATH)]:
         median, p90 = measure(fn)
         size = round(path.stat().st_size / 1e6, 2)
         results[name] = {"size_mb": size, "median_ms": median, "p90_ms": p90}

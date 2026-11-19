@@ -5,12 +5,17 @@
   "runs": 50,
   "pytorch": {
     "size_mb": 7.81,
-    "median_ms": 95.3,
-    "p90_ms": 96.1
+    "median_ms": 94.9,
+    "p90_ms": 95.7
   },
   "onnx": {
     "size_mb": 7.85,
-    "median_ms": 81.8,
-    "p90_ms": 85.0
+    "median_ms": 81.6,
+    "p90_ms": 82.2
+  },
+  "onnx_int8": {
+    "size_mb": 2.05,
+    "median_ms": 34.9,
+    "p90_ms": 35.2
   }
 }
