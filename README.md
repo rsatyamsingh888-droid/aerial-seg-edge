@@ -13,7 +13,7 @@ numbers measured by the scripts in this repository.
 - [x] Preprocessing and PyTorch dataset
 - [x] U-Net model and training loop
 - [x] Evaluation (mean IoU per class)
-- [ ] ONNX export and parity check
+- [x] ONNX export and parity check
 - [ ] Benchmark: model size and CPU latency
 - [ ] Results table and prediction images
 
@@ -40,7 +40,40 @@ python scripts/explore_data.py
 
 ## Results
 
-Not measured yet.
+| Class | PyTorch | ONNX
+|---|---|---|
+| background | 47.0 | 47.0 |
+| building | 39.1 | 39.1 |
+| road | 38.5 | 38.5 |
+| water | 40.4 | 40.4 |
+| barren | 17.8 | 17.8 |
+| forest | 38.1 | 38.1 |
+| agriculture | 39.0 | 39.0 |
+| **mIoU** | **37.1** | **37.1** |
+
+On the validation split cut from Train, mIoU is 53.4 %. The 16-point gap
+comes from the official Val images covering different regions with a
+different class mix (see [docs/data_stats.md](docs/data_stats.md)).
+
+### Size and CPU latency (median of 50 runs after 10 warm-up runs)
+
+| Runtime | Size | 4 threads | 1 thread |
+|---|---|---|---|
+| PyTorch | 7.81 MB | 95.3 ms | 107.5 ms |
+| ONNX Runtime | 7.85 MB | 81.8 ms | 274.5 ms |
+
+On an Apple M-series CPU, ONNX Runtime was 14 % faster than PyTorch with
+4 threads and 2.6× slower with 1 thread. PyTorch on macOS likely uses
+Apple's matrix unit through Apple's math library, so the single-thread
+PyTorch figure is not representative of edge hardware without such a
+unit. Measuring on an ARM board would be the next step.
+
+### Training
+
+![Loss curve](docs/loss_curve.png)
+
+30 epochs, best validation loss 0.748 at epoch 29. Validation loss was
+still falling, so a longer run would likely improve the results.
 
 ## Licence
 
