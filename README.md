@@ -14,7 +14,7 @@ numbers measured by the scripts in this repository.
 - [x] U-Net model and training loop
 - [x] Evaluation (mean IoU per class)
 - [x] ONNX export and parity check
-- [ ] Benchmark: model size and CPU latency
+- [x] Benchmark: model size and CPU latency
 - [ ] Results table and prediction images
 
 ## Data
