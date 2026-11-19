@@ -40,16 +40,16 @@ python scripts/explore_data.py
 
 ## Results
 
-| Class | PyTorch | ONNX
-|---|---|---|
-| background | 47.0 | 47.0 |
-| building | 39.1 | 39.1 |
-| road | 38.5 | 38.5 |
-| water | 40.4 | 40.4 |
-| barren | 17.8 | 17.8 |
-| forest | 38.1 | 38.1 |
-| agriculture | 39.0 | 39.0 |
-| **mIoU** | **37.1** | **37.1** |
+| Class | PyTorch | ONNX fp32 | ONNX int8 |
+|---|---|---|---|
+| background | 47.0 | 47.0 | 47.0 |
+| building | 39.1 | 39.1 | 38.7 |
+| road | 38.5 | 38.5 | 38.0 |
+| water | 40.4 | 40.4 | 40.0 |
+| barren | 17.8 | 17.8 | 16.8 |
+| forest | 38.1 | 38.1 | 38.0 |
+| agriculture | 39.0 | 39.0 | 38.3 |
+| **mIoU** | **37.1** | **37.1** | **36.7** |
 
 On the validation split cut from Train, mIoU is 53.4 %. The 16-point gap
 comes from the official Val images covering different regions with a
@@ -59,13 +59,17 @@ different class mix (see [docs/data_stats.md](docs/data_stats.md)).
 
 | Runtime | Size | 4 threads | 1 thread |
 |---|---|---|---|
-| PyTorch | 7.81 MB | 95.3 ms | 107.5 ms |
-| ONNX Runtime | 7.85 MB | 81.8 ms | 274.5 ms |
+| PyTorch | 7.81 MB | 94.9 ms | 107.4 ms |
+| ONNX fp32 | 7.85 MB | 81.6 ms | 274.1 ms |
+| ONNX int8 | 2.05 MB | 34.9 ms | 97.4 ms |
 
-On an Apple M-series CPU, ONNX Runtime was 14 % faster than PyTorch with
-4 threads and 2.6× slower with 1 thread. PyTorch on macOS likely uses
-Apple's matrix unit through Apple's math library, so the single-thread
-PyTorch figure is not representative of edge hardware without such a
+Static int8 quantization (QDQ, per-channel, calibrated on 100 training
+images) made the model 3.8× smaller and 2.3× faster than ONNX fp32 with
+4 threads, for a loss of 0.4 points mIoU.
+
+PyTorch on macOS likely uses Apple's matrix unit through Apple's math
+library, which explains why its single-thread time barely changes. That
+figure is therefore not representative of edge hardware without such a
 unit. Measuring on an ARM board would be the next step.
 
 ### Training
