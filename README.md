@@ -15,7 +15,7 @@ numbers measured by the scripts in this repository.
 - [x] Evaluation (mean IoU per class)
 - [x] ONNX export and parity check
 - [x] Benchmark: model size and CPU latency
-- [ ] Results table and prediction images
+- [x] Results table and prediction images
 
 ## Data
 
@@ -50,6 +50,10 @@ python scripts/explore_data.py
 | forest | 38.1 | 38.1 | 38.0 |
 | agriculture | 39.0 | 39.0 | 38.3 |
 | **mIoU** | **37.1** | **37.1** | **36.7** |
+
+![Predictions on four test tiles](docs/predictions.png)
+
+Images and labels: LoveDA (Wang et al., NeurIPS 2021), CC BY-NC-SA 4.0.
 
 On the validation split cut from Train, mIoU is 53.4 %. The 16-point gap
 comes from the official Val images covering different regions with a

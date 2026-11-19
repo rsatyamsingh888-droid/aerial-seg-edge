@@ -45,12 +45,13 @@ def main():
             if col == 0:
                 ax.imshow(panel)
             else:
-                ax.imshow(panel, cmap=cmap, vmin=0, vmax=len(CLASSES), interpolation="nearest")
-                ax.set_xticks([])
-                ax.set_yticks([])
-                if row == 0:
-                    ax.set_title(titles[col])
-                    axes[row, 0].set_ylabel(ds.images[index].stem, fontsize=10)
+                ax.imshow(panel, cmap=cmap, vmin=0, vmax=len(CLASSES),
+                          interpolation="nearest")
+            ax.set_xticks([])
+            ax.set_yticks([])
+            if row == 0:
+                ax.set_title(titles[col])
+        axes[row, 0].set_ylabel(ds.images[index].stem, fontsize=8)
 
     legend = [Patch(color=c, label=n) for c, n in zip(COLOURS, CLASSES + ["no-data"])]
     fig.legend(handles=legend, loc="lower center", ncol=8, fontsize=9)
